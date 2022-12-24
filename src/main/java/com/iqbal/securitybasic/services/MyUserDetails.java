@@ -1,4 +1,4 @@
-package com.iqbal.securitybasic.config;
+package com.iqbal.securitybasic.services;
 
 import com.iqbal.securitybasic.model.Customer;
 import com.iqbal.securitybasic.repository.CustomerRepository;
@@ -17,14 +17,14 @@ import java.util.List;
 @Service
 public class MyUserDetails implements UserDetailsService {
 
-    @Autowired(required = false)
+    @Autowired
     private CustomerRepository customerRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         String userName = null, password = null;
         List<GrantedAuthority> authorities = null;
-        List<Customer> customers = customerRepository.findByEmail(userName);
+        List<Customer> customers = customerRepository.findByEmail(email);
         if(customers.size() == 0) {
             throw new UsernameNotFoundException("User Details Not Found for the User.");
         } else {
