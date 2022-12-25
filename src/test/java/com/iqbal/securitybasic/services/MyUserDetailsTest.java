@@ -4,8 +4,10 @@ import com.iqbal.securitybasic.model.Customer;
 import com.iqbal.securitybasic.repository.CustomerRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.mockito.Mockito;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -17,15 +19,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
-@SpringBootTest
+@ExtendWith(MockitoExtension.class)
 class MyUserDetailsTest {
 
-    @Autowired
     @InjectMocks
     private MyUserDetails myUserDetails;
 
-    @MockBean
+    @Mock
     private CustomerRepository customerRepository;
 
     @Test
@@ -42,7 +44,7 @@ class MyUserDetailsTest {
 
     @Test
     public void testLoadByUserNameUserNameNotFound() {
-        Mockito.when(customerRepository.findByEmail(Mockito.anyString()))
+        when(customerRepository.findByEmail(anyString()))
                 .thenReturn(new ArrayList<>());
 
         assertThrows(UsernameNotFoundException.class, () -> myUserDetails.loadUserByUsername("test"));
@@ -53,10 +55,13 @@ class MyUserDetailsTest {
         List<Customer> customers = new ArrayList<>();
         customers.add(new Customer(1, "test", "123456", "admin"));
 
-        Mockito.when(customerRepository.findByEmail(Mockito.anyString()))
+        when(customerRepository.findByEmail(anyString()))
                 .thenReturn(customers);
 
         User result = (User) myUserDetails.loadUserByUsername("test");
+
+        verify(customerRepository, times(1))
+                .findByEmail(anyString());
 
         assertAll("properties",
                 () -> assertEquals("test", result.getUsername()),
