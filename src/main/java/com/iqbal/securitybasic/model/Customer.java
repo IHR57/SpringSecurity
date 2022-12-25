@@ -16,4 +16,11 @@ public class Customer {
     private String email;
     private String pwd;
     private String role;
+
+    public Customer(int id, String email, String pwd, String role) {
+        this.id = id;
+        this.email = email;
+        this.pwd = pwd;
+        this.role = role;
+    }
 }

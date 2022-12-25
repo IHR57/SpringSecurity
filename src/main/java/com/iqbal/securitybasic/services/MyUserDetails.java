@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,6 +25,9 @@ public class MyUserDetails implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         String userName = null, password = null;
         List<GrantedAuthority> authorities = null;
+        if(email == null || email.isEmpty()) {
+            throw new InvalidParameterException("User Name Should Not be Null or Empty");
+        }
         List<Customer> customers = customerRepository.findByEmail(email);
         if(customers.size() == 0) {
             throw new UsernameNotFoundException("User Details Not Found for the User.");
