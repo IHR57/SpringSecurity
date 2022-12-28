@@ -19,13 +19,15 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NotifierComponent } from './shared/notifier/notifier.component';
 import { HeaderComponent } from './components/header/header.component';
+import { NoticesComponent } from './components/notices/notices.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AuthComponent,
     NotifierComponent,
-    HeaderComponent
+    HeaderComponent,
+    NoticesComponent
   ],
   imports: [
     BrowserModule,
