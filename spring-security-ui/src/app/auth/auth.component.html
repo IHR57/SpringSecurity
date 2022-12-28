@@ -1,0 +1,100 @@
+<div class="container" fxLayout="row" fxLayoutGap="10px" fxLayoutAlign="center center">
+    <div class="mt-3" fxFlex.lt-md="70%" fxFlex.lt-xl="40%" fxFlex.lt-sm="100%">
+        <mat-card>
+            <mat-card-content>
+                <div *ngIf="isForgetPassword" fxLayout="column" fxLayoutGap="10px">
+                    <div fxFlex class="d-flex justify-content-center">
+                        <img src="assets/goal_management_logo.png" height="220" width="280">
+                    </div>
+                    <div fxFlex class="d-flex justify-content-center mt-1 mb-3">
+                        <h4>Personal Goal Manager</h4>
+                    </div>
+                    <div fxFlex>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Email</mat-label>
+                            <input type="text" matInput [formControl]="userNameFormControl" placeholder="Enter Your Email">
+                        </mat-form-field>
+                    </div>
+                    <div fxLayout="column">
+                        <button fxFlex type="button"  class="btn-submit" (click)="onClickLogin()" mat-flat-button color="primary">Reset My Password</button>
+                    </div>
+                    <div><button mat-flat-button (click)="isForgetPassword=false; isSignIn=true; isSignUp=false;">Back to Sign In</button></div>
+                </div>
+                <div *ngIf="isSignIn" fxLayout="column" fxLayoutGap="10px">
+                    <div fxFlex class="d-flex justify-content-center">
+                        <img src="assets/goal_management_logo.png" height="220" width="280">
+                    </div>
+                    <div fxFlex class="d-flex justify-content-center mt-1 mb-3">
+                        <h4>Personal Goal Manager</h4>
+                    </div>
+                    <div fxFlex>
+                        <mat-form-field appearance="outline">
+                            <mat-label>User Name</mat-label>
+                            <input type="text" matInput [formControl]="userNameFormControl" placeholder="User Name">
+                        </mat-form-field>
+                    </div>
+                    <div fxFlex>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Password</mat-label>
+                            <input type="password" matInput [formControl]="passwordFormControl" placeholder="Password">
+                        </mat-form-field>
+                    </div>
+                    <div fxLayout="column">
+                        <button fxFlex type="button"  class="btn-submit" (click)="onClickLogin()" mat-flat-button color="primary">Sign In</button>
+                    </div>
+                    <div fxFlex>
+                        <div fxLayout="row" fxLayoutAlign="space-between center">
+                            <div><button mat-flat-button (click)="isForgetPassword=true; isSignIn=false; isSignUp=false;">Forget Password?</button></div>
+                            <div><button mat-flat-button (click)="isForgetPassword=false; isSignIn=false; isSignUp=true;">Sign Up</button></div>
+                        </div>
+                    </div>
+                </div>
+                <div *ngIf="isSignUp">
+                    <form [formGroup]="regForm">
+                        <div fxLayout="column">
+                            <div fxFlex class="d-flex justify-content-center mt-1 mb-3">
+                                <h6 class="border-bottom border-primary pb-1 border-3">Sign Up</h6>
+                            </div>
+                            <div fxFlex>
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Name</mat-label>
+                                    <input type="text" matInput formControlName="name" placeholder="Your Name">
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex>
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Email</mat-label>
+                                    <input type="text" matInput formControlName="email" placeholder="Ex. abc12@gmail.com">
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex>
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Password</mat-label>
+                                    <input [type]="hidePass ? 'password' : 'text'" matInput formControlName="password" placeholder="Password">
+                                    <mat-icon matSuffix (click)="hidePass = !hidePass">{{hidePass ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                </mat-form-field>
+                            </div>
+                            <div fxFlex>
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Confirm Password</mat-label>
+                                    <input [type]="hideConfirmPass ? 'password' : 'text'" matInput formControlName="confirmPassword" placeholder="Confirm Password">
+                                    <mat-icon matSuffix (click)="hideConfirmPass = !hideConfirmPass">{{hideConfirmPass ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                    <mat-error *ngIf="regForm.controls['confirmPassword'].hasError('passwordMismatch')">Password does not match</mat-error>
+                                </mat-form-field>
+                            </div>
+                            <div fxLayout="column">
+                                <button fxFlex type="button" class="btn-submit" (click)="onClickSignUp()" mat-flat-button color="primary">Sign Up</button>
+                            </div>
+                            <div fxFlex>
+                                <div fxLayout="row" fxLayoutAlign="space-between center" class="mt-2">
+                                    <div><span>Already have an account?</span></div>
+                                    <div><button mat-flat-button (click)="isForgetPassword=false; isSignIn=true; isSignUp=false;">Sign In</button></div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

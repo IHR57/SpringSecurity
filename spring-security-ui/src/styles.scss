@@ -1,0 +1,40 @@
+@import '~bootstrap/dist/css/bootstrap.min.css';
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    background-color: gainsboro;
+    padding: 0px !important;
+    margin: 0PX !important;
+}
+
+.center {
+    display: flex; 
+    justify-content: center; 
+    text-align: center; 
+} 
+
+.mat-form-field {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+button, h1, h2, h3, h4, h5, h6, p {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+.success {
+    background-color: #00600f;
+    color: white;
+}
+
+.error {
+    background-color: #c41c00;
+    color: white;
+}
+
+.btn-submit:hover {
+    background: linear-gradient(to right, #283593, #283593);
+}
