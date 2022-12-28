@@ -4,11 +4,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AuthComponent } from './auth/auth.component';
+import { AuthComponent } from './components/auth/auth.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -19,13 +18,14 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NotifierComponent } from './shared/notifier/notifier.component';
-import { environment } from 'src/environments/environment';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AuthComponent,
-    NotifierComponent
+    NotifierComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +40,6 @@ import { environment } from 'src/environments/environment';
     MatInputModule,
     MatSnackBarModule,
     MatIconModule,
-    AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AppRoutingModule
   ],

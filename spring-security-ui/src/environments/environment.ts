@@ -4,15 +4,7 @@
 
 export const environment = {
   production: false,
-  firebase: {
-    apiKey: "AIzaSyAPyQcrlAZJO7UFA2HDRzvZvP_vnbYaKN0",
-    authDomain: "personal-goal-management.firebaseapp.com",
-    projectId: "personal-goal-management",
-    storageBucket: "personal-goal-management.appspot.com",
-    messagingSenderId: "356480013187",
-    appId: "1:356480013187:web:1f226b81ba19d287099cb6",
-    measurementId: "G-ZBG35MEM0Z"
-  }
+  rooturl : 'http://localhost:8080'
 };
 
 /*

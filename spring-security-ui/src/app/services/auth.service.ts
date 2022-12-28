@@ -11,37 +11,12 @@ import { auth } from 'firebase/app';
 export class AuthService {
 
   constructor(
-    private http: HttpClient,
-    public auth: AngularFireAuth
+    private http: HttpClient
   ) { }
 
   httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
-
-  async userLogin(userName: string, password: string) {
-
-    // let request = Object.assign({});
-    // request.userName = userName;
-    // request.password = password;
-
-    // const url = `http://localhost:8080/auth/login`;
-
-    // return this.http.post<Object>(url, request)
-    // .pipe(
-    //   retry(0),
-    //   catchError(this.handleError)
-    // );
-    await this.auth.signInWithEmailAndPassword(userName, password)
-    .then((res) => {
-      console.log(res.user);
-      localStorage.setItem("user", JSON.stringify(res.user))
-    })
-  }
-
-  userSignUp(email: string, password: string) {
-    this.auth.createUserWithEmailAndPassword(email, password);
-  }
 
   private handleError(err: HttpErrorResponse) {
     let msg: string;

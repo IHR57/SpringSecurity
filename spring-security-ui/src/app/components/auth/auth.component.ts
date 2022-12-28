@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../services/auth.service';
-import { NotifierService } from '../services/shared/notifier.service';
+import { AuthService } from '../../services/auth.service';
+import { NotifierService } from '../../services/shared/notifier.service';
 
 @Component({
   selector: 'app-auth',
@@ -66,23 +66,14 @@ export class AuthComponent implements OnInit {
   passwordFormControl = new FormControl('', Validators.required);
 
   onClickLogin() {
-    this.notifierService.showNotification('Invalid User Name or Password', 'error');
-    this.authService.userLogin(this.userNameFormControl.value, this.passwordFormControl.value)
-    // .subscribe(
-    //   (data: any) => {
-    //     console.log(data);
-    //   },
-    //   (err: any) => {
-    //     console.log(err);
-    //   }
-    // )
+
   }
 
   onClickSignUp() {
     if(this.regForm.invalid)
       return;
 
-    this.authService.userSignUp(this.regForm.controls['email'].value, this.regForm.controls['password'].value);
+    //this.authService.userSignUp(this.regForm.controls['email'].value, this.regForm.controls['password'].value);
   }
 
 }
