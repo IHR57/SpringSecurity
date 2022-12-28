@@ -19,7 +19,7 @@ public class SecurityConfig {
         http.csrf().disable()
                 .authorizeHttpRequests()
                 .requestMatchers("/myAccount", "/myBalance", "myLoans", "myCards").authenticated()
-                .requestMatchers("/contacts", "/notices", "/register").permitAll()    // Publicly accessible
+                .requestMatchers("/contact", "/notices", "/register").permitAll()    // Publicly accessible
                 .and().formLogin()
                 .and().httpBasic();
 

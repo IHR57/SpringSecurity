@@ -51,7 +51,7 @@ class MyUserNamePasswordAuthenticationProviderTest {
         when(authentication.getName()).thenReturn("test");
 
         when(customerRepository.findByEmail(anyString()))
-                .thenReturn(List.of(new Customer(1, "test", "test", "test")));
+                .thenReturn(List.of(new Customer()));
 
         when(passwordEncoder.matches(any(CharSequence.class), anyString()))
                 .thenReturn(false);
@@ -67,7 +67,7 @@ class MyUserNamePasswordAuthenticationProviderTest {
         when(authentication.getName()).thenReturn("test");
 
         when(customerRepository.findByEmail(anyString()))
-                .thenReturn(List.of(new Customer(1, "test", "test", "test")));
+                .thenReturn(List.of(new Customer()));
 
         when(passwordEncoder.matches(any(CharSequence.class), anyString()))
                 .thenReturn(true);

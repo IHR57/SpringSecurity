@@ -1,13 +1,22 @@
 package com.iqbal.securitybasic.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
+import com.iqbal.securitybasic.model.Accounts;
+import com.iqbal.securitybasic.model.Customer;
+import com.iqbal.securitybasic.repository.AccountsRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequiredArgsConstructor
 public class AccountController {
 
-    @GetMapping("/myAccount")
-    public String getMyAccount() {
-        return "My Account...";
+    private final AccountsRepository accountsRepository;
+
+    @PostMapping("/myAccount")
+    public Accounts getAccountDetails(@RequestBody Customer customer) {
+
+        return accountsRepository.findByCustomerId(customer.getId());
     }
 }
