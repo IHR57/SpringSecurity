@@ -4,29 +4,20 @@ import { throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { auth } from 'firebase/app';
+import { AppConstants } from '../constants/app.constant';
+import { environment } from 'src/environments/environment';
+import { User } from '../model/user.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  constructor(private http: HttpClient) {
+    
+  }
 
-  constructor(
-    private http: HttpClient
-  ) { }
-
-  httpOptions = {
-    headers: new HttpHeaders({'Content-Type': 'application/json'})
-  };
-
-  private handleError(err: HttpErrorResponse) {
-    let msg: string;
-    if(err.error instanceof ErrorEvent) {
-      msg = `An Error Occured: ${err.error.message}`;
-    }
-    else {
-      msg = `An Error Occured: ${err.error.message}`;
-    }
-
-    return throwError(msg);
+  validateLoginDetails(user: User) {
+    window.sessionStorage.setItem("userdetails",JSON.stringify(user));
+    return this.http.get(environment.rooturl + AppConstants.LOGIN_API_URL, { observe: 'response',withCredentials: true });
   }
 }

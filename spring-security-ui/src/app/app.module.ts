@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClientXsrfModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthComponent } from './components/auth/auth.component';
@@ -20,6 +20,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NotifierComponent } from './shared/notifier/notifier.component';
 import { HeaderComponent } from './components/header/header.component';
 import { NoticesComponent } from './components/notices/notices.component';
+import { ContactComponent } from './components/contact/contact.component';
+import { XhrInterceptor } from './interceptors/app.request.interceptor';
+import { AuthActivateRouteGuard } from './routerguards/auth.routerguard';
 
 @NgModule({
   declarations: [
@@ -27,7 +30,8 @@ import { NoticesComponent } from './components/notices/notices.component';
     AuthComponent,
     NotifierComponent,
     HeaderComponent,
-    NoticesComponent
+    NoticesComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,
@@ -35,6 +39,10 @@ import { NoticesComponent } from './components/notices/notices.component';
     FlexLayoutModule,
     FormsModule,
     HttpClientModule,
+    HttpClientXsrfModule.withOptions({
+      cookieName: 'XSRF-TOKEN',
+      headerName: 'X-XSRF-TOKEN',
+    }),
     ReactiveFormsModule,
     MatCardModule,
     MatFormFieldModule,
@@ -45,7 +53,13 @@ import { NoticesComponent } from './components/notices/notices.component';
     AngularFireAuthModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide : HTTP_INTERCEPTORS,
+      useClass : XhrInterceptor,
+      multi : true
+    },AuthActivateRouteGuard
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

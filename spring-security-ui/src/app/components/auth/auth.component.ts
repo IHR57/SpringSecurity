@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { User } from 'src/app/model/user.model';
 import { AuthService } from '../../services/auth.service';
 import { NotifierService } from '../../services/shared/notifier.service';
 
@@ -16,11 +18,13 @@ export class AuthComponent implements OnInit {
   regForm!: FormGroup;
   hidePass: boolean = true;
   hideConfirmPass: boolean = true;
+  model = new User();
 
   constructor(
     private authService: AuthService,
     private notifierService: NotifierService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -65,15 +69,34 @@ export class AuthComponent implements OnInit {
   userNameFormControl = new FormControl('', Validators.required);
   passwordFormControl = new FormControl('', Validators.required);
 
-  onClickLogin() {
+  validateUser() {
+    if(!this.userNameFormControl.valid || !this.passwordFormControl.valid)
+      return;
+    this.model.email = this.userNameFormControl.value;
+    this.model.password = this.passwordFormControl.value;
+    this.model.name = this.userNameFormControl.value;
+    this.authService.validateLoginDetails(this.model).subscribe(
+      responseData => {
+        this.model = <any> responseData.body;
+        this.model.authStatus = 'AUTH';
+        window.sessionStorage.setItem("userdetails",JSON.stringify(this.model));
+        let xsrf = this.getCookie('XSRF-TOKEN');
+        window.sessionStorage.setItem("XSRF-TOKEN",xsrf);
+        this.router.navigate(['notices']);
+      }, error => {
+        console.log(error);
+      });
 
   }
 
-  onClickSignUp() {
-    if(this.regForm.invalid)
-      return;
-
-    //this.authService.userSignUp(this.regForm.controls['email'].value, this.regForm.controls['password'].value);
+  getCookie(name: string) {
+    let cookie: any = {};
+    console.log(document.cookie);
+    document.cookie.split(';').forEach(function(el) {
+      let [k,v] = el.split('=');
+      cookie[k.trim()] = v;
+    })
+    return cookie[name];
   }
 
 }

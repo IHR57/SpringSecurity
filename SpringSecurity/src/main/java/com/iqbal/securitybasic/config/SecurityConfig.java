@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
@@ -28,9 +29,10 @@ public class SecurityConfig {
 
                 return config;
             }
-        }).and().csrf().disable()
-                .authorizeHttpRequests()
-                .requestMatchers("/myAccount", "/myBalance", "myLoans", "myCards").authenticated()
+        }).and().csrf().ignoringRequestMatchers("/contact", "/register")
+                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                .and().authorizeHttpRequests()
+                .requestMatchers("/myAccount", "/myBalance", "myLoans", "myCards", "/user").authenticated()
                 .requestMatchers("/contact", "/notices", "/register").permitAll()    // Publicly accessible
                 .and().formLogin()
                 .and().httpBasic();

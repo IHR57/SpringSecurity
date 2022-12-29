@@ -8,12 +8,12 @@
         <nav class="hright dnav">
             <ul>
                 <li *ngIf="user.authStatus!='AUTH'" routerLinkActive="active"><a routerLink="/login">Login</a></li>
-                <li *ngIf="user.authStatus!='AUTH'" routerLinkActive="active"><a routerLink="/contact">Contact US</a>
+                <li routerLinkActive="active"><a routerLink="/contact">Contact US</a>
                 </li>
-                <li *ngIf="user.authStatus!='AUTH'" routerLinkActive="active"><a routerLink="/notices">Notices</a></li>
+                <li routerLinkActive="active"><a routerLink="/notices">Notices</a></li>
                 <li *ngIf="user.authStatus=='AUTH'" routerLinkActive="active"><a routerLink="/dashboard">Dashboard</a>
                 </li>
-                <li *ngIf="user.authStatus=='AUTH'" routerLinkActive="active"><a routerLink="/logout">Logout</a></li>
+                <li *ngIf="user.authStatus=='AUTH'" routerLinkActive="active"><button mat-button class="rounded-pill text-white border" (click)="onClickLogout()">Logout</button></li>
 
             </ul>
         </nav>

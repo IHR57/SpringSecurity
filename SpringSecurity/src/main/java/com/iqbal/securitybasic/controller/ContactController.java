@@ -15,7 +15,7 @@ import java.util.Random;
 @RequiredArgsConstructor
 public class ContactController {
 
-    private ContactRepository contactRepository;
+    private final ContactRepository contactRepository;
 
     @PostMapping("/contact")
     public Contact saveContactInquiryDetails(@RequestBody Contact contact) {
