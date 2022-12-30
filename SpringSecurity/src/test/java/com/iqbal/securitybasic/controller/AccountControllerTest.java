@@ -25,7 +25,7 @@ class AccountControllerTest {
                 .thenReturn(null);
 
         Accounts accounts = accountController.getAccountDetails(
-                new Customer(1, "test", "test", "test", "test", "test", "test"));
+                new Customer(1, "test", "test", "test", "test", "test", "test", null));
 
         verify(accountsRepository, times(1)).findByCustomerId(anyInt());
     }

@@ -1,5 +1,6 @@
 package com.iqbal.securitybasic.services;
 
+import com.iqbal.securitybasic.model.Authority;
 import com.iqbal.securitybasic.model.Customer;
 import com.iqbal.securitybasic.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -34,7 +36,7 @@ public class MyUserNamePasswordAuthenticationProvider implements AuthenticationP
             if(passwordEncoder.matches(password, customers.get(0).getPwd())) {
                 List<GrantedAuthority> authorities = new ArrayList<>();
                 authorities.add(new SimpleGrantedAuthority(customers.get(0).getRole()));
-                return new UsernamePasswordAuthenticationToken(userName, password, authorities);
+                return new UsernamePasswordAuthenticationToken(userName, password, getGrantedAuthorities(customers.get(0).getAuthorities()));
             } else {
                 throw new BadCredentialsException("Invalid Password");
             }
@@ -46,5 +48,14 @@ public class MyUserNamePasswordAuthenticationProvider implements AuthenticationP
     @Override
     public boolean supports(Class<?> authentication) {
         return (UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication));
+    }
+
+    private List<GrantedAuthority> getGrantedAuthorities(Set<Authority> authoritySet) {
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        for(Authority authority : authoritySet) {
+            authorities.add(new SimpleGrantedAuthority(authority.getName()));
+        }
+
+        return authorities;
     }
 }

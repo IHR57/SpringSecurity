@@ -32,7 +32,11 @@ public class SecurityConfig {
         }).and().csrf().ignoringRequestMatchers("/contact", "/register")
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
                 .and().authorizeHttpRequests()
-                .requestMatchers("/myAccount", "/myBalance", "myLoans", "myCards", "/user").authenticated()
+                .requestMatchers("/myAccount").hasAuthority("VIEWACCOUNT")
+                .requestMatchers("/myBalance").hasAnyAuthority("VIEWBALANCE", "VIEWACCOUNT")
+                .requestMatchers("/myLoans").hasAuthority("VIEWLOANS")
+                .requestMatchers("/myCards").hasAuthority("VIEWCARDS")
+                .requestMatchers("/user").authenticated()
                 .requestMatchers("/contact", "/notices", "/register").permitAll()    // Publicly accessible
                 .and().formLogin()
                 .and().httpBasic();
