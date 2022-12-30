@@ -23,6 +23,10 @@ import { NoticesComponent } from './components/notices/notices.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { XhrInterceptor } from './interceptors/app.request.interceptor';
 import { AuthActivateRouteGuard } from './routerguards/auth.routerguard';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { AccountComponent } from './components/account/account.component';
+import { BalanceComponent } from './components/balance/balance.component';
+import { CardsComponent } from './components/cards/cards.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +35,11 @@ import { AuthActivateRouteGuard } from './routerguards/auth.routerguard';
     NotifierComponent,
     HeaderComponent,
     NoticesComponent,
-    ContactComponent
+    ContactComponent,
+    DashboardComponent,
+    AccountComponent,
+    BalanceComponent,
+    CardsComponent
   ],
   imports: [
     BrowserModule,

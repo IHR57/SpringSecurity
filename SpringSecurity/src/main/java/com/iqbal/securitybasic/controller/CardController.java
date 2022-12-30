@@ -4,10 +4,7 @@ import com.iqbal.securitybasic.model.Cards;
 import com.iqbal.securitybasic.model.Customer;
 import com.iqbal.securitybasic.repository.CardsRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,9 +14,9 @@ public class CardController {
 
     private final CardsRepository cardsRepository;
 
-    @PostMapping("/myCards")
-    public List<Cards> getCardDetails(@RequestBody Customer customer) {
+    @GetMapping("/myCards")
+    public List<Cards> getCardDetails(@RequestParam int id) {
 
-        return cardsRepository.findByCustomerId(customer.getId());
+        return cardsRepository.findByCustomerId(id);
     }
 }

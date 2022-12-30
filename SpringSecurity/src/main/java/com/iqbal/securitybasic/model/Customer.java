@@ -1,6 +1,7 @@
 package com.iqbal.securitybasic.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -8,6 +9,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -35,7 +38,13 @@ public class Customer {
 
     private String createDt;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
-    private Set<Authority> authorities;
+    //@JsonIgnore
+    @OneToMany(
+            fetch = FetchType.EAGER,
+            mappedBy = "customer",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    @JsonManagedReference
+    private List<Authority> authorities = new ArrayList<>();
 }

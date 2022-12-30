@@ -4,9 +4,8 @@ import com.iqbal.securitybasic.model.Accounts;
 import com.iqbal.securitybasic.model.Customer;
 import com.iqbal.securitybasic.repository.AccountsRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -14,9 +13,9 @@ public class AccountController {
 
     private final AccountsRepository accountsRepository;
 
-    @PostMapping("/myAccount")
-    public Accounts getAccountDetails(@RequestBody Customer customer) {
+    @GetMapping("/myAccount")
+    public Accounts getAccountDetails(@RequestParam int id) {
 
-        return accountsRepository.findByCustomerId(customer.getId());
+        return accountsRepository.findByCustomerId(id);
     }
 }

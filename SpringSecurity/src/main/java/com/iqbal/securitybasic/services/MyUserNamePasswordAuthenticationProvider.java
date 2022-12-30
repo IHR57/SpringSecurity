@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -35,7 +34,7 @@ public class MyUserNamePasswordAuthenticationProvider implements AuthenticationP
         if(customers.size() > 0) {
             if(passwordEncoder.matches(password, customers.get(0).getPwd())) {
                 List<GrantedAuthority> authorities = new ArrayList<>();
-                authorities.add(new SimpleGrantedAuthority(customers.get(0).getRole()));
+                //authorities.add(new SimpleGrantedAuthority(customers.get(0).getRole()));
                 return new UsernamePasswordAuthenticationToken(userName, password, getGrantedAuthorities(customers.get(0).getAuthorities()));
             } else {
                 throw new BadCredentialsException("Invalid Password");
@@ -50,7 +49,7 @@ public class MyUserNamePasswordAuthenticationProvider implements AuthenticationP
         return (UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication));
     }
 
-    private List<GrantedAuthority> getGrantedAuthorities(Set<Authority> authoritySet) {
+    private List<GrantedAuthority> getGrantedAuthorities(List<Authority> authoritySet) {
         List<GrantedAuthority> authorities = new ArrayList<>();
         for(Authority authority : authoritySet) {
             authorities.add(new SimpleGrantedAuthority(authority.getName()));

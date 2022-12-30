@@ -12,8 +12,8 @@ export class DashboardService {
 
   constructor(private http:HttpClient) { }
 
-  getAccountDetails(user : User){
-    return this.http.post(environment.rooturl + AppConstants.ACCOUNT_API_URL,user,{ observe: 'response',withCredentials: true });
+  getAccountDetails(id: number){
+    return this.http.get(environment.rooturl + AppConstants.ACCOUNT_API_URL + "?id="+id, { observe: 'response',withCredentials: true });
   }
 
   getAccountTransactions(user : User){
@@ -24,8 +24,8 @@ export class DashboardService {
     return this.http.post(environment.rooturl + AppConstants.LOANS_API_URL,user,{ observe: 'response',withCredentials: true });
   }
 
-  getCardsDetails(user : User){
-    return this.http.post(environment.rooturl + AppConstants.CARDS_API_URL,user,{ observe: 'response',withCredentials: true });
+  getCardsDetails(id : number){
+    return this.http.get(environment.rooturl + AppConstants.CARDS_API_URL + "?id="+id ,{ observe: 'response',withCredentials: true });
   }
 
   getNoticeDetails(){

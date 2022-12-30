@@ -24,8 +24,7 @@ class AccountControllerTest {
         when(accountsRepository.findByCustomerId(anyInt()))
                 .thenReturn(null);
 
-        Accounts accounts = accountController.getAccountDetails(
-                new Customer(1, "test", "test", "test", "test", "test", "test", null));
+        Accounts accounts = accountController.getAccountDetails(1);
 
         verify(accountsRepository, times(1)).findByCustomerId(anyInt());
     }
