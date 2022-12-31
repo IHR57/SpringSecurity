@@ -35,10 +35,12 @@ public class SecurityConfig {
             .and().csrf().ignoringRequestMatchers("/contact", "/register")
             .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
             .and().authorizeHttpRequests()
-            .requestMatchers("/myAccount").hasAuthority("VIEWACCOUNT")
-            .requestMatchers("/myBalance").hasAnyAuthority("VIEWBALANCE", "VIEWACCOUNT")
-            .requestMatchers("/myLoans").hasAuthority("VIEWLOANS")
-            .requestMatchers("/myCards").hasAuthority("VIEWCARDS")
+//            .requestMatchers("/myAccount").hasAuthority("VIEWACCOUNT")
+//            .requestMatchers("/myBalance").hasAnyAuthority("VIEWBALANCE", "VIEWACCOUNT")
+            .requestMatchers("/myAccount").hasRole("USER")
+            .requestMatchers("/myBalance").hasAnyRole("USER","ADMIN")
+            .requestMatchers("/myLoans").hasRole("USER")
+            .requestMatchers("/myCards").hasRole("USER")
             .requestMatchers("/user").authenticated()
             .requestMatchers("/contact", "/notices", "/register").permitAll()    // Publicly accessible
             .and().formLogin()
@@ -46,28 +48,6 @@ public class SecurityConfig {
 
         return http.build();
     }
-
-//    @Bean
-//    public UserDetailsService userDetailsService(DataSource dataSource) {
-//        return new JdbcUserDetailsManager(dataSource);
-//    }
-
-    /*
-    @Bean
-    public InMemoryUserDetailsManager userDetailsService() {
-        UserDetails admin = User.withUsername("admin")
-                .password("123456")
-                .authorities("admin")
-                .build();
-
-        UserDetails user = User.withUsername("user")
-                .password("123456")
-                .authorities("user")
-                .build();
-
-        return new InMemoryUserDetailsManager(admin, user);
-    }
-    */
 
     @Bean
     public PasswordEncoder passwordEncoder() {
