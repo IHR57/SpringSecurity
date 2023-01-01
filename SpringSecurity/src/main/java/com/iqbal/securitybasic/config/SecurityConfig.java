@@ -1,5 +1,6 @@
 package com.iqbal.securitybasic.config;
 
+import com.iqbal.securitybasic.filter.RequestValidationBeforeFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -8,6 +9,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -34,15 +36,14 @@ public class SecurityConfig {
             })
             .and().csrf().ignoringRequestMatchers("/contact", "/register")
             .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-            .and().authorizeHttpRequests()
-//            .requestMatchers("/myAccount").hasAuthority("VIEWACCOUNT")
-//            .requestMatchers("/myBalance").hasAnyAuthority("VIEWBALANCE", "VIEWACCOUNT")
+            .and().addFilterBefore(new RequestValidationBeforeFilter(), BasicAuthenticationFilter.class)
+            .authorizeHttpRequests()
             .requestMatchers("/myAccount").hasRole("USER")
             .requestMatchers("/myBalance").hasAnyRole("USER","ADMIN")
             .requestMatchers("/myLoans").hasRole("USER")
             .requestMatchers("/myCards").hasRole("USER")
             .requestMatchers("/user").authenticated()
-            .requestMatchers("/contact", "/notices", "/register").permitAll()    // Publicly accessible
+            .requestMatchers("/notices", "/register", "/contact").permitAll()    // Publicly accessible
             .and().formLogin()
             .and().httpBasic();
 
