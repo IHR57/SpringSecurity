@@ -1,5 +1,7 @@
 package com.iqbal.securitybasic.config;
 
+import com.iqbal.securitybasic.filter.JWTTokenGeneratorFilter;
+import com.iqbal.securitybasic.filter.JWTTokenValidatorFilter;
 import com.iqbal.securitybasic.filter.RequestValidationBeforeFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.context.annotation.Bean;
@@ -38,6 +40,8 @@ public class SecurityConfig {
             .and().csrf().ignoringRequestMatchers("/contact", "/register")
             .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
             .and().addFilterBefore(new RequestValidationBeforeFilter(), BasicAuthenticationFilter.class)
+            .addFilterAfter(new JWTTokenGeneratorFilter(), BasicAuthenticationFilter.class)
+            .addFilterBefore(new JWTTokenValidatorFilter(), BasicAuthenticationFilter.class)
             .authorizeHttpRequests()
             .requestMatchers("/myAccount").hasRole("USER")
             .requestMatchers("/myBalance").hasAnyRole("USER","ADMIN")

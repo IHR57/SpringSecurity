@@ -77,6 +77,7 @@ export class AuthComponent implements OnInit {
     this.model.name = this.userNameFormControl.value;
     this.authService.validateLoginDetails(this.model).subscribe(
       responseData => {
+        window.sessionStorage.setItem("Authorization", responseData.headers.get('Authorization')!);
         this.model = <any> responseData.body;
         this.model.authStatus = 'AUTH';
         window.sessionStorage.setItem("userdetails",JSON.stringify(this.model));
