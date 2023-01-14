@@ -20,8 +20,8 @@ export class DashboardService {
     return this.http.post(environment.rooturl + AppConstants.BALANCE_API_URL,user,{ observe: 'response',withCredentials: true });
   }
 
-  getLoansDetails(user : User){
-    return this.http.post(environment.rooturl + AppConstants.LOANS_API_URL,user,{ observe: 'response',withCredentials: true });
+  getLoansDetails(id : number){
+    return this.http.get(environment.rooturl + AppConstants.LOANS_API_URL + "?id="+id,{ observe: 'response',withCredentials: true });
   }
 
   getCardsDetails(id : number){
@@ -33,7 +33,9 @@ export class DashboardService {
   }
 
   saveMessage(contact : Contact){
-    return this.http.post(environment.rooturl + AppConstants.CONTACT_API_URL,contact,{ observe: 'response'});
+    let contacts = [];
+    contacts.push(contact);
+    return this.http.post(environment.rooturl + AppConstants.CONTACT_API_URL,contacts,{ observe: 'response'});
   }
 
 }

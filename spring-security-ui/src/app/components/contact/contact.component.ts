@@ -11,6 +11,7 @@ import { DashboardService } from 'src/app/services/dashboard.service';
 export class ContactComponent implements OnInit {
 
   model = new Contact();
+  contacts = new Array();
 
   constructor(private dashboardService: DashboardService) {
 
@@ -23,7 +24,7 @@ export class ContactComponent implements OnInit {
     this.dashboardService.saveMessage(this.model)
     .subscribe(
       (data: any) => {
-        this.model = <any> data.body;
+        this.contacts = <any> data.body;
         contactForm.resetForm();
       }, 
       (error: any) => {
