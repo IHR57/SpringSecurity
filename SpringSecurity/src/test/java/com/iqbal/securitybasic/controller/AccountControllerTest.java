@@ -3,6 +3,7 @@ package com.iqbal.securitybasic.controller;
 import com.iqbal.securitybasic.model.Accounts;
 import com.iqbal.securitybasic.model.Customer;
 import com.iqbal.securitybasic.repository.AccountsRepository;
+import com.iqbal.securitybasic.repository.CustomerRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -19,12 +20,15 @@ class AccountControllerTest {
     @Mock
     AccountsRepository accountsRepository;
 
+    @Mock
+    CustomerRepository customerRepository;
+
     @Test
     public void getAccountDetails_accountNotFound_returnsNull() {
         when(accountsRepository.findByCustomerId(anyInt()))
                 .thenReturn(null);
 
-        Accounts accounts = accountController.getAccountDetails(1);
+        Accounts accounts = accountController.getAccountDetails("test@234.com");
 
         verify(accountsRepository, times(1)).findByCustomerId(anyInt());
     }

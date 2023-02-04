@@ -3,6 +3,7 @@ package com.iqbal.securitybasic.controller;
 import com.iqbal.securitybasic.model.AccountTransactions;
 import com.iqbal.securitybasic.model.Customer;
 import com.iqbal.securitybasic.repository.AccountTransactionsRepository;
+import com.iqbal.securitybasic.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,11 +17,16 @@ import java.util.List;
 public class BalanceController {
 
     private final AccountTransactionsRepository accountTransactionsRepository;
+    private final CustomerRepository customerRepository;
 
     @PostMapping("/myBalance")
-    public List<AccountTransactions> getBalanceDetails(@RequestBody Customer customer) {
+    public List<AccountTransactions> getBalanceDetails(@RequestBody String email) {
 
-        return accountTransactionsRepository.
-                findByCustomerIdOrderByTransactionDtDesc(customer.getId());
+        List<Customer> customers = customerRepository.findByEmail(email);
+        if (customers != null && !customers.isEmpty()) {
+            return accountTransactionsRepository.
+                    findByCustomerIdOrderByTransactionDtDesc(customers.get(0).getId());
+        }
+        return null;
     }
 }

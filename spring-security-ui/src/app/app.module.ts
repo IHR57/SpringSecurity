@@ -8,8 +8,6 @@ import { AuthComponent } from './components/auth/auth.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { AngularFireAuthModule } from '@angular/fire/auth';
-
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -60,7 +58,6 @@ import { LoansComponent } from './components/loans/loans.component';
     MatInputModule,
     MatSnackBarModule,
     MatIconModule,
-    AngularFireAuthModule,
     AppRoutingModule
   ],
   providers: [
