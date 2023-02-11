@@ -45,8 +45,7 @@ public class SecurityConfig {
             .requestMatchers("/myCards").hasRole("USER")
             .requestMatchers("/user").authenticated()
             .requestMatchers("/notices", "/register", "/contact").permitAll()    // Publicly accessible
-            .and().formLogin()
-            .and().httpBasic();
+            .and().oauth2ResourceServer().jwt().jwtAuthenticationConverter(jwtAuthenticationConverter);
 
         return http.build();
     }
